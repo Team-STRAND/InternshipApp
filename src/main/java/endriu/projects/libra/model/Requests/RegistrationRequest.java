@@ -1,7 +1,9 @@
 package endriu.projects.libra.model.Requests;
 
 public class RegistrationRequest {
-    private String username;
+    private String name;
+    private String surname;
+    private String email;
     private String password;
     private boolean active;
     private String role;
@@ -9,18 +11,28 @@ public class RegistrationRequest {
     public RegistrationRequest() {
     }
 
-    public RegistrationRequest(String username, String password) {
-        this.username = username;
+    public RegistrationRequest(String name, String surname, String email, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String username) {
+        this.name = username;
     }
+
+    public String getSurname() { return surname; }
+
+    public void setSurname(String surname) { this.surname = surname; }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 
     public String getPassword() {
         return password;

@@ -35,11 +35,11 @@ public class UserController {
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         System.out.println("received");
-        Validator.validateUser(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        Validator.validateUser(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
+                    new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword())
             );
         }
         catch (BadCredentialsException e) {
@@ -50,7 +50,7 @@ public class UserController {
         }
 
         final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
+                .loadUserByUsername(authenticationRequest.getEmail());
 
         final String jwt = jwtTokenUtil.generateToken(userDetails);
 
@@ -60,17 +60,16 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> registerUser(@RequestBody RegistrationRequest registrationRequest) throws Exception{
-        System.out.println("entered register");
 
-        Validator.validateUser(registrationRequest.getUsername(), registrationRequest.getPassword());
+        Validator.validateUserDetails(registrationRequest.getName(), registrationRequest.getSurname(),  registrationRequest.getPassword());
 
-        boolean exists = userDetailsService.exists(registrationRequest.getUsername());
+        boolean exists = userDetailsService.exists(registrationRequest.getEmail());
         System.out.println(exists);
         if (exists){
             throw new InvalidInputException("Username is already in use");
         }
 
-        userDetailsService.addUser(registrationRequest.getUsername(), registrationRequest.getPassword());
+        userDetailsService.addUser(registrationRequest.getEmail(), registrationRequest.getName(), registrationRequest.getSurname(), registrationRequest.getPassword());
         return ResponseEntity.ok(new RegistrationResponse("User added"));
     }
 

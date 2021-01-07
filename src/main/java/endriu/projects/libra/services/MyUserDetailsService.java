@@ -26,15 +26,14 @@ public class MyUserDetailsService implements UserDetailsService {
         Optional<User> user = userRepository.findByUserName(userName);
 
         if (user.isEmpty()){
-
             throw new UsernameNotFoundException("Username " + userName + " not found");
         }
 
         return user.map(MyUserDetails::new).get();
     }
 
-    public void addUser(String username, String password){
-        userRepository.save(new User(username, password, true, "ROLE_USER"));
+    public void addUser(String username, String name, String surname, String password){
+        userRepository.save(new User(username, password, name, surname, true, "ROLE_USER"));
     }
 
     public boolean exists(String username){

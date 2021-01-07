@@ -16,14 +16,34 @@ public class User {
     private int id;
     private String userName;
     private String password;
+    private String name;
+    private String surname;
     private boolean active;
     private String roles;
 
-    public User(String userName, String password, boolean active, String roles) {
+    public User(String userName, String password, String name, String surname, boolean active, String roles) {
         this.userName = userName;
         this.password = password;
+        this.name = name;
+        this.surname = surname;
         this.active = active;
         this.roles = roles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public User(){}
