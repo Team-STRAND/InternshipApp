@@ -34,7 +34,6 @@ public class UserController {
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-        System.out.println("received");
         Validator.validateUser(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
         try {
@@ -45,16 +44,14 @@ public class UserController {
         catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
-        catch (Exception exc){
-            //System.out.println("no good");
-        }
 
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getEmail());
-
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        return ResponseEntity.ok(
+                new AuthenticationResponse(
+                        userDetailsService.getUserByEmail(
+                                authenticationRequest.getEmail()
+                        )
+                )
+        );
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -64,12 +61,11 @@ public class UserController {
         Validator.validateUserDetails(registrationRequest.getName(), registrationRequest.getSurname(),  registrationRequest.getPassword());
 
         boolean exists = userDetailsService.exists(registrationRequest.getEmail());
-        System.out.println(exists);
         if (exists){
             throw new InvalidInputException("Username is already in use");
         }
 
-        userDetailsService.addUser(registrationRequest.getEmail(), registrationRequest.getName(), registrationRequest.getSurname(), registrationRequest.getPassword());
+        userDetailsService.addUser(registrationRequest);
         return ResponseEntity.ok(new RegistrationResponse("User added"));
     }
 

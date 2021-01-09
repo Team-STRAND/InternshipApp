@@ -18,16 +18,56 @@ public class User {
     private String password;
     private String name;
     private String surname;
+    private String phoneNumber;
+    private String address;
+    private String companyName;
+    private UserType type;
     private boolean active;
     private String roles;
 
-    public User(String userName, String password, String name, String surname, boolean active, String roles) {
+    public User(String userName, String password, String name, String surname, String phoneNumber, String address, String companyName, UserType type, boolean active, String roles) {
         this.userName = userName;
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.companyName = companyName;
+        this.type = type;
         this.active = active;
         this.roles = roles;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public UserType getType() {
+        return type;
+    }
+
+    public void setType(UserType type) {
+        this.type = type;
     }
 
     public String getName() {

@@ -2,7 +2,9 @@ package endriu.projects.libra.services;
 
 import endriu.projects.libra.dao.UserRepository;
 import endriu.projects.libra.model.MyUserDetails;
+import endriu.projects.libra.model.Requests.RegistrationRequest;
 import endriu.projects.libra.model.User;
+import endriu.projects.libra.model.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -11,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Locale;
 import java.util.Optional;
 
 import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.ignoreCase;
@@ -32,8 +35,21 @@ public class MyUserDetailsService implements UserDetailsService {
         return user.map(MyUserDetails::new).get();
     }
 
-    public void addUser(String username, String name, String surname, String password){
-        userRepository.save(new User(username, password, name, surname, true, "ROLE_USER"));
+    public void addUser(RegistrationRequest data){
+        userRepository.save(
+                new User(
+                        data.getEmail(),
+                        data.getPassword(),
+                        data.getName(),
+                        data.getSurname(),
+                        data.getPhoneNumber(),
+                        data.getAddress(),
+                        data.getCompanyName(),
+                        UserType.valueOf(data.getUserType().toUpperCase(Locale.ENGLISH)),
+                        true,
+                        "ROLE_USER"
+                )
+        );
     }
 
     public boolean exists(String username){
@@ -48,4 +64,6 @@ public class MyUserDetailsService implements UserDetailsService {
     public String getUserById(int id){
         return this.userRepository.getById(id).getUserName();
     }
+
+    public User getUserByEmail(String email) { return this.userRepository.getByUserName(email); }
 }
