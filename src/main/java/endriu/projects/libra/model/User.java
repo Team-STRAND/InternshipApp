@@ -24,6 +24,7 @@ public class User {
     private UserType type;
     private boolean active;
     private String roles;
+    private String resumepath;
 
     public User(int id, String userName, String password, String name, String surname, String phoneNumber, String address, String companyName, UserType type, boolean active, String roles) {
         this.id = id;
@@ -37,6 +38,7 @@ public class User {
         this.type = type;
         this.active = active;
         this.roles = roles;
+        this.resumepath = "";
     }
 
     public User(String userName, String password, String name, String surname, String phoneNumber, String address, String companyName, UserType type, boolean active, String roles) {
@@ -50,6 +52,7 @@ public class User {
         this.type = type;
         this.active = active;
         this.roles = roles;
+        this.resumepath = "";
     }
 
     public String getPhoneNumber() {
@@ -151,5 +154,13 @@ public class User {
     public User setRoles(String roles) {
         this.roles = roles;
         return this;
+    }
+
+    public String getResumepath() {
+        return resumepath;
+    }
+
+    public void setResumepath(String resumepath) {
+        this.resumepath = resumepath;
     }
 }

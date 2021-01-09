@@ -4,20 +4,18 @@ import endriu.projects.libra.model.Requests.AuthenticationRequest;
 import endriu.projects.libra.model.Requests.RegistrationRequest;
 import endriu.projects.libra.model.Requests.UpdateUserInfoRequest;
 import endriu.projects.libra.model.Responses.AuthenticationResponse;
-import endriu.projects.libra.model.Responses.DeletionResponse;
-import endriu.projects.libra.model.Responses.RegistrationResponse;
+import endriu.projects.libra.model.Responses.SimpleMessageResponse;
 import endriu.projects.libra.model.exceptions.InvalidInputException;
 import endriu.projects.libra.services.MyUserDetailsService;
 import endriu.projects.libra.util.JwtUtil;
 import endriu.projects.libra.util.Validator;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @CrossOrigin(origins="*")
@@ -68,7 +66,7 @@ public class UserController {
         }
 
         userDetailsService.addUser(registrationRequest);
-        return ResponseEntity.ok(new RegistrationResponse("User added"));
+        return ResponseEntity.ok(new SimpleMessageResponse("User added"));
     }
 
     @PutMapping("/{userid}")
@@ -84,7 +82,16 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable int userid) {
         this.userDetailsService.deleteUser(userid);
         return ResponseEntity.ok(
-                new DeletionResponse("User was successfully deleted.")
+                new SimpleMessageResponse("User was successfully deleted.")
+        );
+    }
+
+    @PostMapping("/resume/{userid}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<?> uploadResume(@PathVariable int userid, @RequestParam("resume")MultipartFile resume) throws Exception {
+        this.userDetailsService.uploadResume(userid, resume);
+        return ResponseEntity.ok(
+                new SimpleMessageResponse("Resume was successfully uploaded for user with id " + userid + ".")
         );
     }
 }

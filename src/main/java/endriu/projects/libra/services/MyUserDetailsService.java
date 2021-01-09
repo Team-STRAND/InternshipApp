@@ -14,7 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -81,4 +83,13 @@ public class MyUserDetailsService implements UserDetailsService {
     public User getUserByEmail(String email) { return this.userRepository.getByUserName(email); }
 
     public void deleteUser(int userid) { this.userRepository.deleteById(userid); }
+
+    public void uploadResume(int userid, MultipartFile resume) throws Exception {
+        String path = "D:\\internshipresumes\\" + resume.getOriginalFilename();
+        resume.transferTo(new File(path));
+
+        User aux = this.userRepository.getById(userid);
+        aux.setResumepath(path);
+        this.userRepository.save(aux);
+    }
 }
