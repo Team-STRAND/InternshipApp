@@ -4,6 +4,7 @@ import endriu.projects.libra.model.Requests.AuthenticationRequest;
 import endriu.projects.libra.model.Requests.RegistrationRequest;
 import endriu.projects.libra.model.Requests.UpdateUserInfoRequest;
 import endriu.projects.libra.model.Responses.AuthenticationResponse;
+import endriu.projects.libra.model.Responses.DeletionResponse;
 import endriu.projects.libra.model.Responses.RegistrationResponse;
 import endriu.projects.libra.model.exceptions.InvalidInputException;
 import endriu.projects.libra.services.MyUserDetailsService;
@@ -75,6 +76,15 @@ public class UserController {
     public ResponseEntity<?> updateUserInformation(@PathVariable int userid, @RequestBody UpdateUserInfoRequest updateUserInfoRequest) {
         return ResponseEntity.ok(
                 this.userDetailsService.updateUserInfo(userid, updateUserInfoRequest)
+        );
+    }
+
+    @DeleteMapping("/{userid}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<?> deleteUser(@PathVariable int userid) {
+        this.userDetailsService.deleteUser(userid);
+        return ResponseEntity.ok(
+                new DeletionResponse("User was successfully deleted.")
         );
     }
 }

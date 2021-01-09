@@ -1,15 +1,14 @@
 package endriu.projects.libra.model.Responses;
 
-public class RegistrationResponse {
+public class DeletionResponse {
 
     private String message;
 
-    public RegistrationResponse(String message) {
+    public DeletionResponse(String message) {
         this.message = message;
     }
 
     public String getMessage() {
         return message;
     }
-
 }
