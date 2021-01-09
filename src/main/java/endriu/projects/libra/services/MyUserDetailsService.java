@@ -79,4 +79,6 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     public User getUserByEmail(String email) { return this.userRepository.getByUserName(email); }
+
+    public void deleteUser(int userid) { this.userRepository.deleteById(userid); }
 }
