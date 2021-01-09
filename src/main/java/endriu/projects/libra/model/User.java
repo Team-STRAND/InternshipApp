@@ -25,6 +25,20 @@ public class User {
     private boolean active;
     private String roles;
 
+    public User(int id, String userName, String password, String name, String surname, String phoneNumber, String address, String companyName, UserType type, boolean active, String roles) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.companyName = companyName;
+        this.type = type;
+        this.active = active;
+        this.roles = roles;
+    }
+
     public User(String userName, String password, String name, String surname, String phoneNumber, String address, String companyName, UserType type, boolean active, String roles) {
         this.userName = userName;
         this.password = password;
@@ -42,48 +56,54 @@ public class User {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public User setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        return this;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public User setAddress(String address) {
         this.address = address;
+        return this;
     }
 
     public String getCompanyName() {
         return companyName;
     }
 
-    public void setCompanyName(String companyName) {
+    public User setCompanyName(String companyName) {
         this.companyName = companyName;
+        return this;
     }
 
     public UserType getType() {
         return type;
     }
 
-    public void setType(UserType type) {
+    public User setType(UserType type) {
         this.type = type;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public User setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
+    public User setSurname(String surname) {
         this.surname = surname;
+        return this;
     }
 
     public User(){}
@@ -108,23 +128,28 @@ public class User {
         return roles;
     }
 
-    public void setId(int id) {
+    public User setId(int id) {
         this.id = id;
+        return this;
     }
 
-    public void setUserName(String userName) {
+    public User setUserName(String userName) {
         this.userName = userName;
+        return this;
     }
 
-    public void setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
     }
 
-    public void setActive(boolean active) {
+    public User setActive(boolean active) {
         this.active = active;
+        return this;
     }
 
-    public void setRoles(String roles) {
+    public User setRoles(String roles) {
         this.roles = roles;
+        return this;
     }
 }
