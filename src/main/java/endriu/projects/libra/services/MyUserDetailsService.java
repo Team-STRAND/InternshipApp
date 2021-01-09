@@ -3,8 +3,10 @@ package endriu.projects.libra.services;
 import endriu.projects.libra.dao.UserRepository;
 import endriu.projects.libra.model.MyUserDetails;
 import endriu.projects.libra.model.Requests.RegistrationRequest;
+import endriu.projects.libra.model.Requests.UpdateUserInfoRequest;
 import endriu.projects.libra.model.User;
 import endriu.projects.libra.model.UserType;
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -50,6 +52,17 @@ public class MyUserDetailsService implements UserDetailsService {
                         "ROLE_USER"
                 )
         );
+    }
+
+    public User updateUserInfo(int userid, UpdateUserInfoRequest updateUserInfoRequest){
+        User aux = this.userRepository.getById(userid);
+        aux = aux.setName(updateUserInfoRequest.getName())
+                .setSurname(updateUserInfoRequest.getSurname())
+                .setPhoneNumber(updateUserInfoRequest.getPhoneNumber())
+                .setCompanyName(updateUserInfoRequest.getCompanyName())
+                .setAddress(updateUserInfoRequest.getAddress());
+        this.userRepository.save(aux);
+        return aux;
     }
 
     public boolean exists(String username){
