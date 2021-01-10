@@ -87,6 +87,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public void deleteUser(int userid) { this.userRepository.deleteById(userid); }
 
     public void uploadResume(int userid, MultipartFile resume) throws Exception {
+        new File(String.format("C:\\Users\\%s\\AppData\\Roaming\\InternshipApp", System.getProperty("user.name"))).mkdir();
         new File(String.format("C:\\Users\\%s\\AppData\\Roaming\\InternshipApp\\Resumes", System.getProperty("user.name"))).mkdir();
         String path = String.format("C:\\Users\\%s\\AppData\\Roaming\\InternshipApp\\Resumes\\", System.getProperty("user.name")) + String.format("Resume_%s.pdf", userid);
         resume.transferTo(new File(path));
