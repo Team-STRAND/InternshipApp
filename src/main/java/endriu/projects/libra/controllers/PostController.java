@@ -37,7 +37,7 @@ public class PostController {
         return ResponseEntity.ok(new SimpleMessageResponse("Post added"));
     }
 	
-	@PutMapping(value = "/{postid}")
+	@PostMapping(value = "/{postid}")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> updatePost(@RequestBody Post post, @PathVariable int postid) throws Exception {
 		
@@ -46,7 +46,7 @@ public class PostController {
         return ResponseEntity.ok(new SimpleMessageResponse("Post modified"));
     }
 	
-	@DeleteMapping(value = "/{postid}")
+	@PostMapping(value = "/{postid}")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> deletePost(@PathVariable int postid) throws Exception {
 		
