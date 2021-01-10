@@ -69,7 +69,7 @@ public class UserController {
         return ResponseEntity.ok(new SimpleMessageResponse("User added"));
     }
 
-    @PutMapping("/{userid}")
+    @PostMapping("/update/{userid}")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> updateUserInformation(@PathVariable int userid, @RequestBody UpdateUserInfoRequest updateUserInfoRequest) {
         return ResponseEntity.ok(
@@ -77,7 +77,7 @@ public class UserController {
         );
     }
 
-    @DeleteMapping("/{userid}")
+    @PostMapping("/delete/{userid}")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> deleteUser(@PathVariable int userid) {
         this.userDetailsService.deleteUser(userid);
