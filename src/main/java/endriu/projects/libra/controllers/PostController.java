@@ -74,7 +74,9 @@ public class PostController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	public Post findPost(@PathVariable int postid) throws Exception{
 		
-		return postService.findPost(postid);
+		Post post = postService.findPost(postid);
+		post.setCreator(null);
+		return post;
 		
 	}
 
