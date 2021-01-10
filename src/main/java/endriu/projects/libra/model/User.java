@@ -31,13 +31,6 @@ public class User {
     private String resumepath;
     @OneToMany(mappedBy="creator")
     private List<Post> postsCreated;
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-        name = "Students_Internships", 
-        joinColumns = { @JoinColumn(name = "user_id") }, 
-        inverseJoinColumns = { @JoinColumn(name = "post_id") }
-    )
-    private List<Post> internships;
 
     public User(int id, String userName, String password, String name, String surname, String phoneNumber, String address, String companyName, UserType type, boolean active, String roles) {
         this.id = id;
@@ -53,7 +46,6 @@ public class User {
         this.roles = roles;
         this.resumepath = "";
         this.postsCreated = new ArrayList<Post>();
-        this.internships = new ArrayList<Post>();
     }
 
     public User(String userName, String password, String name, String surname, String phoneNumber, String address, String companyName, UserType type, boolean active, String roles) {
@@ -69,7 +61,6 @@ public class User {
         this.roles = roles;
         this.resumepath = "";
         this.postsCreated = new ArrayList<Post>();
-        this.internships = new ArrayList<Post>();
     }
 
     public String getPhoneNumber() {
@@ -181,14 +172,6 @@ public class User {
         this.resumepath = resumepath;
     }
     
-    public void addInternship(Post post) {
-    	this.internships.add(post);
-    }
-    
-    public void removeInternship(Post post) {
-    	this.internships.remove(post);
-    }
-    
     public void addPostCreated(Post post) {
     	this.postsCreated.add(post);
     }
@@ -203,13 +186,5 @@ public class User {
 
 	public void setPostsCreated(List<Post> postsCreated) {
 		this.postsCreated = postsCreated;
-	}
-
-	public List<Post> getInternships() {
-		return internships;
-	}
-
-	public void setInternships(List<Post> internships) {
-		this.internships = internships;
 	}
 }

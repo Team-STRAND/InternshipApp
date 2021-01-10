@@ -8,7 +8,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -30,8 +29,6 @@ public class Post {
 	private String companyEmail;
 	@OneToMany(mappedBy="post")
 	private List<Comment> comments;
-	@ManyToMany(mappedBy = "internships")
-	private List<User> applicants;
 	@ManyToOne
 	private User creator;
 	
@@ -41,7 +38,7 @@ public class Post {
 
 	public Post(DomainType domain, String requirements, Integer duration, Integer numberOfApplicants,
 			Boolean paid, String information, String companyEmail, List<Comment> comments,
-			List<User> applicants, User creator) {
+			User creator) {
 		super();
 		this.domain = domain;
 		this.requirements = requirements;
@@ -51,13 +48,12 @@ public class Post {
 		this.information = information;
 		this.companyEmail = companyEmail;
 		this.comments = comments;
-		this.applicants = applicants;
 		this.creator = creator;
 	}
 
 	public Post(int id, DomainType domain, String requirements, Integer duration, Integer numberOfApplicants,
 			Boolean paid, String information, String companyEmail, List<Comment> comments,
-			List<User> applicants, User creator) {
+			User creator) {
 		super();
 		this.id = id;
 		this.domain = domain;
@@ -68,7 +64,6 @@ public class Post {
 		this.information = information;
 		this.companyEmail = companyEmail;
 		this.comments = comments;
-		this.applicants = applicants;
 		this.creator = creator;
 	}
 
@@ -144,28 +139,12 @@ public class Post {
 		this.comments = comments;
 	}
 
-	public List<User> getApplicants() {
-		return applicants;
-	}
-
-	public void setApplicants(List<User> applicants) {
-		this.applicants = applicants;
-	}
-
 	public User getCreator() {
 		return creator;
 	}
 
 	public void setCreator(User creator) {
 		this.creator = creator;
-	}
-	
-	public void addApplicant(User user) {
-		this.applicants.add(user);
-	}
-	
-	public void removeApplicant(User user) {
-		this.applicants.remove(user);
 	}
 	
 	public void addComment(Comment comment) {

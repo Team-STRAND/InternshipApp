@@ -25,7 +25,6 @@ public class PostService {
 	public void addPost(Post post) {
 		
 		post.setNumberOfApplicants(0);
-		post.setApplicants(new ArrayList<User>());
 		post.setComments(new ArrayList<Comment>());
 		postRepository.save(post);
 	}
