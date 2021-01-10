@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import endriu.projects.libra.model.Post;
+import endriu.projects.libra.model.User;
 import endriu.projects.libra.model.Responses.SimpleMessageResponse;
 import endriu.projects.libra.services.PostService;
 import endriu.projects.libra.util.Validator;
@@ -51,5 +53,13 @@ public class PostController {
         
         return ResponseEntity.ok(new SimpleMessageResponse("Post deleted"));
     }
+	
+	@GetMapping(value = "")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public ResponseEntity<?> findPosts(@RequestBody User user) throws Exception{
+		
+		return ResponseEntity.ok(postService.findPosts(user));
+		
+	}
 
 }
