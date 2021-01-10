@@ -1,9 +1,18 @@
 package endriu.projects.libra.services;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import endriu.projects.libra.util.EmailCfg;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 import endriu.projects.libra.dao.PostRepository;
@@ -21,6 +30,10 @@ public class PostService {
 	
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	@Qualifier("gmail")
+	private JavaMailSender mailSender;
 	
 	public void addPost(Post post) {
 		
@@ -55,6 +68,29 @@ public class PostService {
 			return postRepository.findAll();
 		}
 		
+	}
+
+	public void applyToPost(int postid, int userid) throws Exception{
+
+		User user = userRepository.getById(userid);
+
+		if (user.getResumepath().length() != 0){
+			Post post = postRepository.getById(postid);
+
+			MimeMessagePreparator preparator = mimeMessage -> {
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
+				message.setTo(post.getCompanyEmail());
+				message.setFrom("ubb.rpa.2019.d2@gmail.com");
+				message.setSubject(String.format("Someone has applied to the %s internship of your company", post.getDomain()));
+				message.setText(String.format("Internship application from %s %s for the %s internship", user.getName(), user.getSurname(), post.getDomain()));
+				File resume = new File(user.getResumepath());
+				message.addAttachment(resume.getName(), new FileSystemResource(resume));
+			};
+			mailSender.send(preparator);
+		}
+		else {
+			throw new Exception("User has not uploaded a resume.");
+		}
 	}
 	
 }

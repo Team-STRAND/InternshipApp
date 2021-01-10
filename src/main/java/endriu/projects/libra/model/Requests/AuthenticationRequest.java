@@ -12,8 +12,8 @@ public class AuthenticationRequest {
         this.password = password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String username) {
+        this.email = username;
     }
 
     public void setPassword(String password) {

@@ -1,5 +1,6 @@
 package endriu.projects.libra.controllers;
 
+import endriu.projects.libra.model.Requests.ApplyToPostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,4 +63,10 @@ public class PostController {
 		
 	}
 
+	@PostMapping(value = "/apply/{postid}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<?> applyToPost(@PathVariable int postid, @RequestBody ApplyToPostRequest applyToPostRequest) throws Exception {
+        postService.applyToPost(postid, applyToPostRequest.getUserid());
+	    return ResponseEntity.ok(new SimpleMessageResponse("You have successfully applied to the internship post."));
+    }
 }
