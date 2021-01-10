@@ -34,4 +34,13 @@ public class Validator {
         return false;
     }
 
+    
+    public static void validatePostDetails(String email) throws InvalidInputException {
+    	String regex = "^(.+)@(.+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher((CharSequence) email);
+        if (!matcher.matches()){
+            throw new InvalidInputException("Email not valid");
+        }
+    }
 }
