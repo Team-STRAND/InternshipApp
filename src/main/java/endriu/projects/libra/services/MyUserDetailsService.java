@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -85,7 +87,8 @@ public class MyUserDetailsService implements UserDetailsService {
     public void deleteUser(int userid) { this.userRepository.deleteById(userid); }
 
     public void uploadResume(int userid, MultipartFile resume) throws Exception {
-        String path = "D:\\internshipresumes\\" + resume.getOriginalFilename();
+        new File(String.format("C:\\Users\\%s\\AppData\\Roaming\\InternshipApp\\Resumes", System.getProperty("user.name"))).mkdir();
+        String path = String.format("C:\\Users\\%s\\AppData\\Roaming\\InternshipApp\\Resumes\\", System.getProperty("user.name")) + String.format("Resume_%s.pdf", userid);
         resume.transferTo(new File(path));
 
         User aux = this.userRepository.getById(userid);
