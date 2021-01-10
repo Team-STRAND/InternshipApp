@@ -80,6 +80,8 @@ public class PostService {
 
 		if (user.getResumepath().length() != 0){
 			Post post = postRepository.getById(postid);
+			post.setNumberOfApplicants(post.getNumberOfApplicants() + 1);
+			postRepository.save(post);
 
 			MimeMessagePreparator preparator = mimeMessage -> {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
