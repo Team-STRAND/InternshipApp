@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import endriu.projects.libra.model.Post;
 import endriu.projects.libra.model.User;
+import endriu.projects.libra.model.UserType;
 import endriu.projects.libra.model.Responses.SimpleMessageResponse;
 import endriu.projects.libra.services.PostService;
 import endriu.projects.libra.util.Validator;
@@ -54,9 +55,13 @@ public class PostController {
         return ResponseEntity.ok(new SimpleMessageResponse("Post deleted"));
     }
 	
-	@GetMapping(value = "")
+	@GetMapping(value = "/{userid}/{type}")
 	@CrossOrigin(origins = "http://localhost:4200")
-	public ResponseEntity<?> findPosts(@RequestBody User user) throws Exception{
+	public ResponseEntity<?> findPosts(@PathVariable int userid, @PathVariable UserType type) throws Exception{
+		
+		User user = new User();
+		user.setId(userid);
+		user.setType(type);
 		
 		return ResponseEntity.ok(postService.findPosts(user));
 		
