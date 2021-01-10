@@ -69,6 +69,10 @@ public class PostService {
 		}
 		
 	}
+	
+	public Post findPost(Integer postid) {
+		return postRepository.getById(postid);
+	}
 
 	public void applyToPost(int postid, int userid) throws Exception{
 

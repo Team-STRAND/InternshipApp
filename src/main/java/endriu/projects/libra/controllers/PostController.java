@@ -63,7 +63,18 @@ public class PostController {
 		user.setId(userid);
 		user.setType(type);
 		
-		return postService.findPosts(user);
+		List<Post> posts = postService.findPosts(user);
+		for(Post post : posts)
+			post.setCreator(null);
+		return posts;
+		
+	}
+	
+	@GetMapping(value = "/find/{postid}")
+	@CrossOrigin(origins = "http://localhost:4200")
+	public Post findPost(@PathVariable int postid) throws Exception{
+		
+		return postService.findPost(postid);
 		
 	}
 

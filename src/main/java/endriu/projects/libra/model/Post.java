@@ -32,7 +32,6 @@ public class Post {
 	@JsonIgnore
 	@OneToMany(mappedBy="post")
 	private List<Comment> comments;
-	@JsonIgnore
 	@ManyToOne
 	private User creator;
 	
