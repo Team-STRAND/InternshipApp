@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="Post")
 public class Post {
@@ -27,8 +29,10 @@ public class Post {
 	private Boolean paid;
 	private String information;
 	private String companyEmail;
+	@JsonIgnore
 	@OneToMany(mappedBy="post")
 	private List<Comment> comments;
+	@JsonIgnore
 	@ManyToOne
 	private User creator;
 	
