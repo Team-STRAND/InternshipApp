@@ -25,7 +25,6 @@ public class Post {
 	private String requirements;
 	private Integer duration;
 	private Integer numberOfApplicants;
-	private Integer numberOfPositions;
 	private Boolean paid;
 	private String information;
 	private String companyEmail;
@@ -41,14 +40,13 @@ public class Post {
 	}
 
 	public Post(DomainType domain, String requirements, Integer duration, Integer numberOfApplicants,
-			Integer numberOfPositions, Boolean paid, String information, String companyEmail, List<Comment> comments,
+			Boolean paid, String information, String companyEmail, List<Comment> comments,
 			List<User> applicants, User creator) {
 		super();
 		this.domain = domain;
 		this.requirements = requirements;
 		this.duration = duration;
 		this.numberOfApplicants = numberOfApplicants;
-		this.numberOfPositions = numberOfPositions;
 		this.paid = paid;
 		this.information = information;
 		this.companyEmail = companyEmail;
@@ -58,7 +56,7 @@ public class Post {
 	}
 
 	public Post(int id, DomainType domain, String requirements, Integer duration, Integer numberOfApplicants,
-			Integer numberOfPositions, Boolean paid, String information, String companyEmail, List<Comment> comments,
+			Boolean paid, String information, String companyEmail, List<Comment> comments,
 			List<User> applicants, User creator) {
 		super();
 		this.id = id;
@@ -66,7 +64,6 @@ public class Post {
 		this.requirements = requirements;
 		this.duration = duration;
 		this.numberOfApplicants = numberOfApplicants;
-		this.numberOfPositions = numberOfPositions;
 		this.paid = paid;
 		this.information = information;
 		this.companyEmail = companyEmail;
@@ -113,14 +110,6 @@ public class Post {
 
 	public void setNumberOfApplicants(Integer numberOfApplicants) {
 		this.numberOfApplicants = numberOfApplicants;
-	}
-
-	public Integer getNumberOfPositions() {
-		return numberOfPositions;
-	}
-
-	public void setNumberOfPositions(Integer numberOfPositions) {
-		this.numberOfPositions = numberOfPositions;
 	}
 
 	public Boolean getPaid() {
