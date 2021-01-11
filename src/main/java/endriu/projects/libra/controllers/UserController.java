@@ -1,5 +1,6 @@
 package endriu.projects.libra.controllers;
 
+import endriu.projects.libra.model.User;
 import endriu.projects.libra.model.Requests.AuthenticationRequest;
 import endriu.projects.libra.model.Requests.RegistrationRequest;
 import endriu.projects.libra.model.Requests.UpdateUserInfoRequest;
@@ -72,9 +73,9 @@ public class UserController {
     @PostMapping("/update/{userid}")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> updateUserInformation(@PathVariable int userid, @RequestBody UpdateUserInfoRequest updateUserInfoRequest) {
-        return ResponseEntity.ok(
-                this.userDetailsService.updateUserInfo(userid, updateUserInfoRequest)
-        );
+    	User user =  this.userDetailsService.updateUserInfo(userid, updateUserInfoRequest);
+    	user.setPostsCreated(null);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/delete/{userid}")
